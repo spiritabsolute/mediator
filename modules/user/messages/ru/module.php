@@ -47,6 +47,10 @@ return [
     'USER_VERIFY_CODE' => 'Код',
     'USER_BUTTON_SIGNUP' => 'Зарегистрироваться',
     'USER_BUTTON_LOGIN' => 'Войти',
+    'USER_NAME' => 'Имя',
+    'USER_SURNAME' => 'Фамилия',
+    'USER_AGE' => 'Возраст',
+    'USER_DATE_BIRTH' => 'Дата рождения',
 
     'PLEASE_FILL_FOR_LOGIN' => 'Для входа на сайт введите данные своей учётной записи:',
     'PLEASE_FILL_FOR_SIGNUP' => 'Для регистрации заполните следующие поля:',

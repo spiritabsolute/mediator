@@ -47,6 +47,10 @@ return [
     'USER_VERIFY_CODE' => 'Verify code',
     'USER_BUTTON_SIGNUP' => 'Signup',
     'USER_BUTTON_LOGIN' => 'Login',
+    'USER_NAME' => '',
+    'USER_SURNAME' => '',
+    'USER_AGE' => '',
+    'USER_DATE_BIRTH' => '',
 
     'PLEASE_FILL_FOR_LOGIN' => 'Please fill out the following fields to login:',
     'PLEASE_FILL_FOR_SIGNUP' => 'Please fill out the following fields to signup:',

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'NAV_HOME' => 'Главная',
+    'NAV_HOME' => 'Рабочий стол',
     'NAV_CONTACT' => 'Связь',
     'NAV_SIGNUP' => 'Регистрация',
     'NAV_LOGIN' => 'Вход',

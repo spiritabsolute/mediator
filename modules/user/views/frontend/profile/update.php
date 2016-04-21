@@ -3,6 +3,7 @@
 use yii\bootstrap\ActiveForm;
 use app\modules\user\Module;
 use yii\helpers\Html;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model \app\modules\user\models\frontend\form\ProfileUpdateForm */
@@ -18,7 +19,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'email')
+            ->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'name')
+            ->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'surname')
+            ->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'age')
+            ->textInput(['maxlength' => true]) ?>
+
+        <?=
+            $form->field($model, 'date_birth')
+                ->widget(DatePicker::classname(), [
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd'
+                ]
+            ])
+        ?>
 
         <div class="form-group">
             <?= Html::submitButton(Module::t('module', 'BUTTON_SAVE'),

@@ -3,10 +3,26 @@ namespace app\modules\main;
 
 use yii\console\Application as ConsoleApplication;
 use Yii;
+use yii\filters\AccessControl;
 
 class Module extends \yii\base\Module
 {
 	public $controllerNamespace = 'app\modules\main\controllers';
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
 	public function init()
 	{

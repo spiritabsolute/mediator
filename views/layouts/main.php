@@ -23,13 +23,14 @@ echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right'],
     'activateParents' => true,
     'items' => array_filter([
-        ['label' => Yii::t('app', 'NAV_HOME'), 'url' => ['/main/default/index']],
-        ['label' => Yii::t('app', 'NAV_CONTACT'), 'url' => ['/main/contact/index']],
-        Yii::$app->user->isGuest ?
-            ['label' => Yii::t('app', 'NAV_SIGNUP'), 'url' => ['/user/default/signup']] :
+        !Yii::$app->user->isGuest ?
+        ['label' => Yii::t('app', 'NAV_HOME'), 'url' => ['/main/default/index']] :
             false,
         Yii::$app->user->isGuest ?
             ['label' => Yii::t('app', 'NAV_LOGIN'), 'url' => ['/user/default/login']] :
+            false,
+        Yii::$app->user->isGuest ?
+            ['label' => Yii::t('app', 'NAV_SIGNUP'), 'url' => ['/user/default/signup']] :
             false,
         !Yii::$app->user->isGuest ?
             ['label' => Yii::t('app', 'NAV_ADMIN'), 'url' => ['/admin/default/index']] :
@@ -49,6 +50,11 @@ NavBar::end();
 
     <div class="container">
         <?= Breadcrumbs::widget([
+            'homeLink' => [
+                'label' => Yii::t('app', 'NAV_HOME'),
+                'url' => Yii::$app->getHomeUrl(),
+                'itemprop' => 'url',
+            ],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>

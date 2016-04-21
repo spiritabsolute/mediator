@@ -24,6 +24,10 @@ use app\modules\user\models\query\UserQuery;
  * @property string $password_reset_token
  * @property string $email
  * @property integer $status
+ * @property string $name
+ * @property string $surname
+ * @property integer $age
+ * @property string $date_birth
  */
 class User extends ActiveRecord implements IdentityInterface
 {

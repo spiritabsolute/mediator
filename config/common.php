@@ -10,7 +10,7 @@ $params = ArrayHelper::merge(
 );
 
 return [
-	'name' => 'My company',
+	'name' => 'MtSite system',
 	'basePath' => dirname(__DIR__),
 	'language' => 'ru-RU',
 	'timeZone' => 'Europe/Kaliningrad',

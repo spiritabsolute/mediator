@@ -86,7 +86,8 @@ class DefaultController extends Controller
 		$model = new SignupForm();
 		if ($model->load(Yii::$app->request->post())) {
 			if ($user = $model->signup()) {
-				Yii::$app->getSession()->setFlash('success', 'Подтвердите ваш электронный адрес.');
+                Yii::$app->user->login($user, 3600*24*30);
+				//Yii::$app->getSession()->setFlash('success', 'Подтвердите ваш электронный адрес.');
 				return $this->goHome();
 			}
 		}
