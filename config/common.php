@@ -19,6 +19,7 @@ return [
 		'app\modules\main\Bootstrap',
 		'app\modules\user\Bootstrap',
 		'app\modules\admin\Bootstrap',
+        'app\modules\ModuleMediator',
 	],
 	'modules' => [],
 	'components' => [

@@ -84,7 +84,7 @@ class ProfileUpdateForm extends Model
             $user->email = $this->email;
             $user->name = $this->name;
             $user->surname = $this->surname;
-            $user->age = $this->age;
+            $user->age = intval($this->age);
             $user->date_birth = $this->date_birth;
             return $user->save();
         }

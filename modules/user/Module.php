@@ -2,9 +2,12 @@
 namespace app\modules\user;
 
 use Yii;
+use app\modules\user\events;
 
 class Module extends \yii\base\Module
 {
+    const EVENT_USER_VIEWED = 'userViewed';
+
 	/**
 	 * @var int
 	 */
@@ -18,4 +21,9 @@ class Module extends \yii\base\Module
 	{
 		return Yii::t('modules/user/' . $category, $message, $params, $language);
 	}
+
+    public function notifyThatUserViewed($user)
+    {
+        $this->trigger(Module::EVENT_USER_VIEWED, new events\UserViewedEvent($user));
+    }
 }

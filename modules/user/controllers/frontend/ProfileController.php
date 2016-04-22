@@ -27,8 +27,10 @@ class ProfileController extends Controller
 
 	public function actionIndex()
 	{
+        $user = $this->findModel();
+        $this->module->notifyThatUserViewed($user);
 		return $this->render('index', [
-			'model' => $this->findModel(),
+			'model' => $user,
 		]);
 	}
 
@@ -46,7 +48,7 @@ class ProfileController extends Controller
 		$model = new ProfileUpdateForm($user);
 
 		if ($model->load(Yii::$app->request->post()) && $model->update()) {
-			return $this->redirect(['index']);
+			return $this->redirect(['update']);
 		} else {
 			return $this->render('update', [
 				'model' => $model,
