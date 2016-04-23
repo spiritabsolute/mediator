@@ -28,7 +28,7 @@ class ProfileController extends Controller
 	public function actionIndex()
 	{
         $user = $this->findModel();
-        $this->module->notifyThatUserViewed($user);
+        $user->notifyThatUserViewed();
 		return $this->render('index', [
 			'model' => $user,
 		]);

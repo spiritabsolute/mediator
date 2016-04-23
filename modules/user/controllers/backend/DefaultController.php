@@ -59,7 +59,7 @@ class DefaultController extends Controller
     public function actionView($id)
     {
         $user = $this->findModel($id);
-        $this->module->notifyThatUserViewed($user);
+        $user->notifyThatUserViewed();
         return $this->render('view', [
             'model' => $user,
         ]);

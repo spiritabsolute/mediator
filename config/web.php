@@ -26,7 +26,6 @@ $config = [
             'modules' => [
                 'users' => [
                     'class' => 'app\modules\user\Module',
-                    'on userViewed' => ['app\modules\ModuleMediator', 'onUserViewed'],
                     'controllerNamespace' => 'app\modules\user\controllers\backend',
                     'viewPath' => '@app/modules/user/views/backend',
                 ],
@@ -37,7 +36,6 @@ $config = [
         ],
         'user' => [
             'class' => 'app\modules\user\Module',
-            'on userViewed' => ['app\modules\ModuleMediator', 'onUserViewed'],
             'controllerNamespace' => 'app\modules\user\controllers\frontend',
             'viewPath' => '@app/modules/user/views/frontend',
         ],

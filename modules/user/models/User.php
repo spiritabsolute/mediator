@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use app\modules\user\Module;
 use app\modules\user\models\query\UserQuery;
+use yii\base\ModelEvent;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -31,6 +32,8 @@ use app\modules\user\models\query\UserQuery;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    const EVENT_AFTER_READ = 'afterRead';
+
 	const STATUS_BLOCKED = 0;
 	const STATUS_ACTIVE = 1;
 	const STATUS_WAIT = 2;
@@ -248,4 +251,10 @@ class User extends ActiveRecord implements IdentityInterface
 	{
 		$this->email_confirm_token = null;
 	}
+
+    public function notifyThatUserViewed()
+    {
+        $event = new ModelEvent;
+        $this->trigger(self::EVENT_AFTER_READ, $event);
+    }
 }
