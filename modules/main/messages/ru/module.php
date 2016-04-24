@@ -14,10 +14,10 @@ return [
 
 	'EVENT_CREATED' => 'Дата события',
 	'EVENT_UPDATED' => 'Дата изменения',
-	'EVENT_ENTITY' => 'Сущность',
-	'EVENT_TYPE' => 'Тип события',
-	'EVENT_AUTHOR' => 'ID инициатора события',
-	'EVENT_CHANGES' => 'Изменения',
+	'EVENT_ENTITY' => 'Сущность: ',
+	'EVENT_TYPE' => 'Тип события: ',
+	'EVENT_AUTHOR' => 'ID инициатора события: ',
+	'EVENT_CHANGES' => 'Изменения: ',
 
 	'EVENT_VIEW_TRIGGER_TEXT' => 'Показать больше событий',
 	'EVENT_VIEW_NONE_LEFT_TEXT' => 'Больше нет событий',

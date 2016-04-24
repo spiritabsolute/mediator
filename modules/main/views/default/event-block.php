@@ -7,17 +7,17 @@ use yii\helpers\Html;
 
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<?= Html::encode(date('d.m.Y H:i', $model->created_at)) ?>
+		<?= Html::encode(date('d.m.Y H:i:s', $model->created_at)) ?>
 	</div>
 	<div class="panel-body">
 		<p>
-			<?= Html::encode(Module::t('module', 'EVENT_ENTITY').': '.$model->entity) ?>
+			<?= Html::encode(Module::t('module', 'EVENT_ENTITY').$model->entity) ?>
 		</p>
 		<p>
-			<?= Html::encode(Module::t('module', 'EVENT_TYPE').': '.$model->type) ?>
+			<?= Html::encode(Module::t('module', 'EVENT_TYPE').$model->type) ?>
 		</p>
 		<p>
-			<?= Html::encode(Module::t('module', 'EVENT_AUTHOR').': '.$model->author) ?>
+			<?= Html::encode(Module::t('module', 'EVENT_AUTHOR').$model->author) ?>
 		</p>
 
 		<?php if(!empty($model->changes)): ?>
