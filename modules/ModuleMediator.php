@@ -9,6 +9,9 @@ use yii\base\Event;
 use app\modules\main\models\Event as EventModel;
 use yii;
 
+//TODO
+// Это просто пример для выполнения задачи. Скорее всего, можно хорошо подумать и доработать этот класс, чтобы он
+// обрабатывал события с разных модулей и не было жесткой привязанности к конкретной сущности.
 class ModuleMediator extends Object implements BootstrapInterface
 {
 	private static $checkUserEvents;
@@ -50,6 +53,9 @@ class ModuleMediator extends Object implements BootstrapInterface
 
 	private static function saveEvent(Event $event)
 	{
+		if(!Yii::$app->user->identity)
+			return;
+
 		$eventModel = new EventModel();
 		$eventModel->entity = get_class($event->sender);
 		$eventModel->type = $event->name;
