@@ -1,7 +1,6 @@
 <?php
 namespace app\modules;
 
-use app\modules\user\models\User;
 use yii\base\Object;
 use yii\base\BootstrapInterface;
 use yii\db\ActiveRecord;
@@ -9,44 +8,36 @@ use yii\base\Event;
 use app\modules\main\models\Event as EventModel;
 use yii;
 
-//TODO
-// Это просто пример для выполнения задачи. Скорее всего, можно хорошо подумать и доработать этот класс, чтобы он
-// обрабатывал события с разных модулей и не было жесткой привязанности к конкретной сущности.
 class ModuleMediator extends Object implements BootstrapInterface
 {
-	private static $checkUserEvents;
+	private static $checkEvents;
 
 	public function bootstrap($app)
 	{
-		if (self::$checkUserEvents === null) {
-			Event::on(User::className(), ActiveRecord::EVENT_AFTER_INSERT,
-				[self::className(), 'onUserCreated']);
-			Event::on(User::className(), User::EVENT_AFTER_READ,
-				[self::className(), 'onUserReaded']);
-			Event::on(User::className(), ActiveRecord::EVENT_AFTER_UPDATE,
-				[self::className(), 'onUserUpdated']);
-			Event::on(User::className(), ActiveRecord::EVENT_AFTER_DELETE,
-				[self::className(), 'onUserDeleted']);
-			self::$checkUserEvents = true;
+		if (self::$checkEvents === null)
+		{
+			Event::on(ActiveRecord::className(), ActiveRecord::EVENT_AFTER_INSERT,
+				[self::className(), 'onCreated']);
+			Event::on(ActiveRecord::className(), ActiveRecord::EVENT_AFTER_UPDATE,
+				[self::className(), 'onUpdated']);
+			Event::on(ActiveRecord::className(), ActiveRecord::EVENT_AFTER_DELETE,
+				[self::className(), 'onDeleted']);
+
+			self::$checkEvents = true;
 		}
 	}
 
-	public static function onUserCreated(Event $event)
+	public static function onCreated(Event $event)
 	{
 		self::saveEvent($event);
 	}
 
-	public static function onUserReaded(Event $event)
+	public static function onUpdated(Event $event)
 	{
 		self::saveEvent($event);
 	}
 
-	public static function onUserUpdated(Event $event)
-	{
-		self::saveEvent($event);
-	}
-
-	public static function onUserDeleted(Event $event)
+	public static function onDeleted(Event $event)
 	{
 		self::saveEvent($event);
 	}
@@ -64,10 +55,16 @@ class ModuleMediator extends Object implements BootstrapInterface
 		{
 			$eventModel->changes = serialize($event->changedAttributes);
 		}
+
+		Event::off(ActiveRecord::className(), ActiveRecord::EVENT_AFTER_INSERT);
+
 		if($eventModel->save())
 		{
 			self::pushEventToSocket($eventModel->getAttributes());
 		}
+
+		Event::on(ActiveRecord::className(), ActiveRecord::EVENT_AFTER_INSERT,
+			[self::className(), 'onCreated']);
 	}
 
 	private static function pushEventToSocket(array $eventModel)
