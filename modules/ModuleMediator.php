@@ -23,11 +23,19 @@ class ModuleMediator extends Object implements BootstrapInterface
 			Event::on(ActiveRecord::className(), ActiveRecord::EVENT_AFTER_DELETE,
 				[self::className(), 'onDeleted']);
 
+			Event::on('app\modules\ReadEventInterface', ReadEventInterface::EVENT_AFTER_READ,
+				[self::className(), 'onReaded']);
+
 			self::$checkEvents = true;
 		}
 	}
 
 	public static function onCreated(Event $event)
+	{
+		self::saveEvent($event);
+	}
+
+	public static function onReaded(Event $event)
 	{
 		self::saveEvent($event);
 	}

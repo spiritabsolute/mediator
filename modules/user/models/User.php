@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use app\modules\user\Module;
 use app\modules\user\models\query\UserQuery;
-use yii\base\ModelEvent;
+use app\modules\ReadEventInterface;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -30,10 +30,8 @@ use yii\base\ModelEvent;
  * @property integer $age
  * @property string $date_birth
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface, ReadEventInterface
 {
-    const EVENT_AFTER_READ = 'afterRead';
-
 	const STATUS_BLOCKED = 0;
 	const STATUS_ACTIVE = 1;
 	const STATUS_WAIT = 2;
@@ -45,13 +43,13 @@ class User extends ActiveRecord implements IdentityInterface
 		];
 	}
 
-    public static function tableName()
-    {
-        return '{{%user}}';
-    }
+	public static function tableName()
+	{
+		return '{{%user}}';
+	}
 
-    public function rules()
-    {
+	public function rules()
+	{
 		return [
 			['username', 'required'],
 			['username', 'match', 'pattern' => '#^[\w_-]+$#i'],
@@ -67,7 +65,7 @@ class User extends ActiveRecord implements IdentityInterface
 			['status', 'default', 'value' => self::STATUS_ACTIVE],
 			['status', 'in', 'range' => array_keys(self::getStatusesArray())],
 		];
-    }
+	}
 
 	public function attributeLabels()
 	{
@@ -252,9 +250,8 @@ class User extends ActiveRecord implements IdentityInterface
 		$this->email_confirm_token = null;
 	}
 
-    public function notifyThatUserViewed()
-    {
-        $event = new ModelEvent;
-        $this->trigger(self::EVENT_AFTER_READ, $event);
-    }
+	public function notifyThatUserViewed()
+	{
+		$this->trigger(ReadEventInterface::EVENT_AFTER_READ);
+	}
 }
